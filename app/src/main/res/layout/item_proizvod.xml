@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvNazivProizvoda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dnevna ulaznica"
+            android:textColor="@color/text_main"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvOpisProizvoda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cjelodnevni boravak na kompleksu jezera."
+            android:textColor="@color/text_muted"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/tvCijenaProizvoda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6.00 KM"
+                android:textColor="@color/primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true" />
+
+            <Button
+                android:id="@+id/btnKupi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KUPI"
+                android:backgroundTint="@color/accent"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

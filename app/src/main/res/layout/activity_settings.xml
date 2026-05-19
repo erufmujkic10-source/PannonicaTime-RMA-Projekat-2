@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:fitsSystemWindows="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigationMenu"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Postavke Aplikacije"
+                android:textColor="#0284C7"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lokalizacija i jezik"
+            android:textColor="#64748B"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@android:drawable/btn_default"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🌐 Izaberite jezik"
+                android:textColor="#1E293B"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/spinnerJezik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Obavijesti i preferencije"
+            android:textColor="#64748B"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_default"
+            android:backgroundTint="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp">
+
+
+            <Switch
+                android:id="@+id/switchObavijesti"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="🔔 Dozvoli Push obavijesti"
+                android:textColor="#1E293B"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="8dp"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E2E8F0" android:layout_marginVertical="4dp"/>
+
+
+            <Switch
+                android:id="@+id/switchNovosti"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="✉️ Primaj obavijesti o popustima"
+                android:textColor="#1E293B"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="8dp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Izgled i dizajn"
+            android:textColor="#64748B"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@android:drawable/btn_default"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="25dp">
+
+            <Switch
+                android:id="@+id/switchTamnaTema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🌙 Tamni režim (Dark Mode)"
+                android:textColor="#1E293B"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnSpasiPostavke"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Primijeni i spasi postavke"
+            android:backgroundTint="#0284C7"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottomNavigationMenu"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:elevation="12dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/menuHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Početna"
+                android:textColor="#64748B"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menuSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pretraga"
+                android:textColor="#64748B"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menuProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profil"
+                android:textColor="#64748B"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
