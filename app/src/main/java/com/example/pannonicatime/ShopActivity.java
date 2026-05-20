@@ -2,156 +2,221 @@ package com.example.pannonicatime;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ScrollView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class ShopActivity extends AppCompatActivity {
 
-    private CardView cardRedovna, cardPovlastena, cardDjecija;
-    private EditText etKolicina;
-    private ScrollView glavniScrollView;
-    private View layoutKartaRezultat;
-    private TextView tvDetaljiRacuna;
-    private ImageView ivQrKod;
+    private Button btnMinusRedovna, btnPlusRedovna;
+    private TextView tvKolicinaRedovna;
+    private int kolRedovna = 0;
+    private final int CIJENA_REDOVNA = 8;
 
+    private Button btnMinusDjecija, btnPlusDjecija;
+    private TextView tvKolicinaDjecija;
+    private int kolDjecija = 0;
+    private final int CIJENA_DJECIJA = 4;
 
-    private int selektovanaKarta = 0;
+    private Button btnMinusPovlastena, btnPlusPovlastena;
+    private TextView tvKolicinaPovlastena;
+    private int kolPovlastena = 0;
+    private final int CIJENA_POVLASTENA = 5;
 
-    private final double CIJENA_REDOVNA = 6.00;
-    private final double CIJENA_POVLAŠTENA = 4.00;
-    private final double CIJENA_DJEČIJA = 3.00;
+    private TextView tvUkupnaCijena;
+    private Button btnPotvrdiKupovinu;
+
+    private CardView cardPromocija1, cardPromocija2, cardPromocija3;
+
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
-        cardRedovna = findViewById(R.id.cardRedovna);
-        cardPovlastena = findViewById(R.id.cardPovlastena);
-        cardDjecija = findViewById(R.id.cardDjecija);
-        etKolicina = findViewById(R.id.etKolicina);
-        glavniScrollView = findViewById(R.id.glavniScrollView);
-        layoutKartaRezultat = findViewById(R.id.layoutKartaRezultat);
-        tvDetaljiRacuna = findViewById(R.id.tvDetaljiRacuna);
-        ivQrKod = findViewById(R.id.ivQrKod);
+        sharedPref = getSharedPreferences("PannonicaPrefs", Context.MODE_PRIVATE);
 
+        btnMinusRedovna = findViewById(R.id.btnMinusRedovna);
+        btnPlusRedovna = findViewById(R.id.btnPlusRedovna);
+        tvKolicinaRedovna = findViewById(R.id.tvKolicinaRedovna);
 
-        osjeziSelektovaniIzgled();
+        btnMinusDjecija = findViewById(R.id.btnMinusDjecija);
+        btnPlusDjecija = findViewById(R.id.btnPlusDjecija);
+        tvKolicinaDjecija = findViewById(R.id.tvKolicinaDjecija);
 
+        btnMinusPovlastena = findViewById(R.id.btnMinusPovlastena);
+        btnPlusPovlastena = findViewById(R.id.btnPlusPovlastena);
+        tvKolicinaPovlastena = findViewById(R.id.tvKolicinaPovlastena);
 
-        cardRedovna.setOnClickListener(v -> {
-            selektovanaKarta = 0;
-            osjeziSelektovaniIzgled();
+        tvUkupnaCijena = findViewById(R.id.tvUkupnaCijena);
+        btnPotvrdiKupovinu = findViewById(R.id.btnPotvrdiKupovinu);
+
+        cardPromocija1 = findViewById(R.id.cardPromocija1);
+        cardPromocija2 = findViewById(R.id.cardPromocija2);
+        cardPromocija3 = findViewById(R.id.cardPromocija3);
+
+        btnPlusRedovna.setOnClickListener(v -> {
+            kolRedovna++;
+            tvKolicinaRedovna.setText(String.valueOf(kolRedovna));
+            osvjeziKorpu();
+        });
+        btnMinusRedovna.setOnClickListener(v -> {
+            if (kolRedovna > 0) {
+                kolRedovna--;
+                tvKolicinaRedovna.setText(String.valueOf(kolRedovna));
+                osvjeziKorpu();
+            }
         });
 
-        cardPovlastena.setOnClickListener(v -> {
-            selektovanaKarta = 1;
-            osjeziSelektovaniIzgled();
+        btnPlusDjecija.setOnClickListener(v -> {
+            kolDjecija++;
+            tvKolicinaDjecija.setText(String.valueOf(kolDjecija));
+            osvjeziKorpu();
+        });
+        btnMinusDjecija.setOnClickListener(v -> {
+            if (kolDjecija > 0) {
+                kolDjecija--;
+                tvKolicinaDjecija.setText(String.valueOf(kolDjecija));
+                osvjeziKorpu();
+            }
         });
 
-        cardDjecija.setOnClickListener(v -> {
-            selektovanaKarta = 2;
-            osjeziSelektovaniIzgled();
+        btnPlusPovlastena.setOnClickListener(v -> {
+            kolPovlastena++;
+            tvKolicinaPovlastena.setText(String.valueOf(kolPovlastena));
+            osvjeziKorpu();
+        });
+        btnMinusPovlastena.setOnClickListener(v -> {
+            if (kolPovlastena > 0) {
+                kolPovlastena--;
+                tvKolicinaPovlastena.setText(String.valueOf(kolPovlastena));
+                osvjeziKorpu();
+            }
         });
 
+        btnPotvrdiKupovinu.setOnClickListener(v -> {
+            int ukupnoKarata = kolRedovna + kolDjecija + kolPovlastena;
 
-        findViewById(R.id.btnKupi).setOnClickListener(v -> izvrsiKupovinu());
+            if (ukupnoKarata == 0) {
+                Toast.makeText(this, "Izaberite barem jednu kartu prije kupovine!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int konacnaCijena = (kolRedovna * CIJENA_REDOVNA) + (kolDjecija * CIJENA_DJECIJA) + (kolPovlastena * CIJENA_POVLASTENA);
+            String trenutniDatum = new SimpleDateFormat("dd.MM.yyyy u HH:mm", Locale.getDefault()).format(new Date());
+
+            StringBuilder racun = new StringBuilder();
+            racun.append("Kupljeno: ").append(trenutniDatum).append("\n\n");
+            if (kolRedovna > 0) racun.append("• Redovna karta x").append(kolRedovna).append(" (").append(kolRedovna * CIJENA_REDOVNA).append(" KM)\n");
+            if (kolDjecija > 0) racun.append("• Dječija karta x").append(kolDjecija).append(" (").append(kolDjecija * CIJENA_DJECIJA).append(" KM)\n");
+            if (kolPovlastena > 0) racun.append("• Povlaštena karta x").append(kolPovlastena).append(" (").append(kolPovlastena * CIJENA_POVLASTENA).append(" KM)\n");
+            racun.append("\n---------------------------\n");
+            racun.append("Ukupan iznos: ").append(konacnaCijena).append(" KM");
+
+            spasiKartuUBazu(racun.toString());
+            ocistiSveBrojace();
+        });
+
+        if (cardPromocija1 != null) {
+            cardPromocija1.setOnClickListener(v -> prikaziDetaljePromocije(
+                    "Porodični Vikend Paket",
+                    "20.00 KM",
+                    "Uključuje cjelodnevni ulaz za dvije odrasle osobe i dvoje djece (do 12 godina) tokom subote ili nedjelje. Idealno za porodični odmor na slanim jezerima!"
+            ));
+        }
+
+        if (cardPromocija2 != null) {
+            cardPromocija2.setOnClickListener(v -> prikaziDetaljePromocije(
+                    "Studentski Paket 3+1",
+                    "15.00 KM",
+                    "Akcija za studente! Kupite 3 povlaštene studentske ulaznice odjednom, a četvrtu ulaznicu dobijate potpuno besplatno. Potrebno je pokazati indeks na ulazu."
+            ));
+        }
+
+        if (cardPromocija3 != null) {
+            cardPromocija3.setOnClickListener(v -> prikaziDetaljePromocije(
+                    "Penzionerski Mjesečni Paket",
+                    "45.00 KM",
+                    "Omogućava neograničen ulaz u kompleks Panonike tokom 30 dana od dana kupovine. Ponuda važi isključivo za penzionere uz pokaz čekova."
+            ));
+        }
+
+        osvjeziKorpu();
     }
 
-    private void osjeziSelektovaniIzgled() {
+    private void prikaziDetaljePromocije(final String naslov, final String cijena, String opis) {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ShopActivity.this);
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.layout_promocija_details, null);
+        bottomSheetDialog.setContentView(bottomSheetView);
 
-        cardRedovna.setCardBackgroundColor(Color.WHITE);
-        cardPovlastena.setCardBackgroundColor(Color.WHITE);
-        cardDjecija.setCardBackgroundColor(Color.WHITE);
+        TextView tvNaslov = bottomSheetView.findViewById(R.id.tvDetaljiNaslov);
+        TextView tvCijena = bottomSheetView.findViewById(R.id.tvDetaljiCijena);
+        TextView tvOpis = bottomSheetView.findViewById(R.id.tvDetaljiOpis);
+        Button btnKupi = bottomSheetView.findViewById(R.id.btnKupiPromociju);
 
+        tvNaslov.setText(naslov);
+        tvCijena.setText("Cijena: " + cijena);
+        tvOpis.setText(opis);
 
-        if (selektovanaKarta == 0) {
-            cardRedovna.setCardBackgroundColor(Color.parseColor("#E0F2FE"));
-        } else if (selektovanaKarta == 1) {
-            cardPovlastena.setCardBackgroundColor(Color.parseColor("#E0F2FE"));
-        } else if (selektovanaKarta == 2) {
-            cardDjecija.setCardBackgroundColor(Color.parseColor("#E0F2FE"));
-        }
+        btnKupi.setOnClickListener(v -> {
+            String trenutniDatum = new SimpleDateFormat("dd.MM.yyyy u HH:mm", Locale.getDefault()).format(new Date());
+
+            StringBuilder racunPromocije = new StringBuilder();
+            racunPromocije.append("Akcija: ").append(trenutniDatum).append("\n\n");
+            racunPromocije.append("• ").append(naslov).append("\n");
+            racunPromocije.append("Status: Aktivna promocija\n");
+            racunPromocije.append("\n---------------------------\n");
+            racunPromocije.append("Plaćeno: ").append(cijena);
+
+            spasiKartuUBazu(racunPromocije.toString());
+
+            bottomSheetDialog.dismiss();
+        });
+
+        bottomSheetDialog.show();
     }
 
-    private void izvrsiKupovinu() {
-        String kolicinaTxt = etKolicina.getText().toString().trim();
-        if (kolicinaTxt.isEmpty()) {
-            Toast.makeText(this, "Molimo unesite količinu karata!", Toast.LENGTH_SHORT).show();
-            return;
+    private void spasiKartuUBazu(String tekstRacuna) {
+        String prethodneNarudzbe = sharedPref.getString("KUPLJENE_KARTE", "");
+        String azuriranaIstorija;
+
+        if (prethodneNarudzbe.isEmpty()) {
+            azuriranaIstorija = tekstRacuna;
+        } else {
+            azuriranaIstorija = prethodneNarudzbe + "##" + tekstRacuna;
         }
 
-        int kolicina = Integer.parseInt(kolicinaTxt);
-        if (kolicina <= 0) {
-            Toast.makeText(this, "Količina mora biti veća od 0!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("KUPLJENE_KARTE", azuriranaIstorija);
+        editor.apply();
 
-        String nazivKarte = "";
-        double cijenaPoKarti = 0;
+        Toast.makeText(this, "Uspješna kupovina! Dodano na profil.", Toast.LENGTH_LONG).show();
+    }
 
+    private void osvjeziKorpu() {
+        int trenutniIznos = (kolRedovna * CIJENA_REDOVNA) + (kolDjecija * CIJENA_DJECIJA) + (kolPovlastena * CIJENA_POVLASTENA);
+        tvUkupnaCijena.setText(trenutniIznos + " KM");
+    }
 
-        if (selektovanaKarta == 0) {
-            nazivKarte = "Redovna ulaznica";
-            cijenaPoKarti = CIJENA_REDOVNA;
-        } else if (selektovanaKarta == 1) {
-            nazivKarte = "Povlaštena ulaznica";
-            cijenaPoKarti = CIJENA_POVLAŠTENA;
-        } else if (selektovanaKarta == 2) {
-            nazivKarte = "Dječija ulaznica";
-            cijenaPoKarti = CIJENA_DJEČIJA;
-        }
-
-        double ukupnaCijena = kolicina * cijenaPoKarti;
-        String datum = new SimpleDateFormat("dd.MM.yyyy. u HH:mm", Locale.getDefault()).format(new Date());
-
-
-        String prikazSadrzaja = "🎫 " + nazivKarte + "\n\n" +
-                "🔢 Količina: " + kolicina + " kom.\n" +
-                "💰 Ukupno plaćeno: " + String.format(Locale.US, "%.2f", ukupnaCijena) + " KM\n\n" +
-                "⏱ " + datum + " h";
-
-        try {
-
-            MultiFormatWriter writer = new MultiFormatWriter();
-            BarcodeEncoder encoder = new BarcodeEncoder();
-            Bitmap qrBitmap = encoder.createBitmap(writer.encode(prikazSadrzaja, BarcodeFormat.QR_CODE, 512, 512));
-
-
-            ivQrKod.setImageBitmap(qrBitmap);
-            tvDetaljiRacuna.setText(prikazSadrzaja);
-            layoutKartaRezultat.setVisibility(View.VISIBLE);
-
-
-            glavniScrollView.post(() -> glavniScrollView.fullScroll(View.FOCUS_DOWN));
-
-
-            SharedPreferences pref = getSharedPreferences("PannonicaPrefs", Context.MODE_PRIVATE);
-            String staraLista = pref.getString("KUPLJENE_KARTE", "");
-            String novaLista = staraLista.isEmpty() ? prikazSadrzaja : staraLista + "##" + prikazSadrzaja;
-            pref.edit().putString("KUPLJENE_KARTE", novaLista).apply();
-
-
-            etKolicina.setText("");
-            Toast.makeText(this, "Uspješno! Karta je sačuvana na Vašem Profilu.", Toast.LENGTH_LONG).show();
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Greška pri obradi kupovine.", Toast.LENGTH_SHORT).show();
-        }
+    private void ocistiSveBrojace() {
+        kolRedovna = 0;
+        kolDjecija = 0;
+        kolPovlastena = 0;
+        tvKolicinaRedovna.setText("0");
+        tvKolicinaDjecija.setText("0");
+        tvKolicinaPovlastena.setText("0");
+        osvjeziKorpu();
     }
 }

@@ -30,12 +30,12 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView ivProfilQrKod;
 
     private SharedPreferences sharedPref;
+    private SharedPreferences loginPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
 
         etIme = findViewById(R.id.etProfilIme);
         etAdresa = findViewById(R.id.etProfilAdresa);
@@ -50,13 +50,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         sharedPref = getSharedPreferences("PannonicaPrefs", Context.MODE_PRIVATE);
 
-        etIme.setText(sharedPref.getString("KORISNIK_IME", "Zijo Zijić"));
-        etAdresa.setText(sharedPref.getString("KORISNIK_ADRESA", "Kulina Bana bb, Tuzla"));
-        etTelefon.setText(sharedPref.getString("KORISNIK_TELEFON", "+387 61 123 456"));
+        loginPref = getSharedPreferences("KorisnickiPodaci", Context.MODE_PRIVATE);
 
+        String stvarniIme = loginPref.getString("ime", sharedPref.getString("KORISNIK_IME", "Korisnik"));
+
+        String stvarnaAdresa = sharedPref.getString("KORISNIK_ADRESA", "Tuzla, BiH");
+        String stvarniTelefon = sharedPref.getString("KORISNIK_TELEFON", "+387 61 000 000");
+
+        etIme.setText(stvarniIme);
+        etAdresa.setText(stvarnaAdresa);
+        etTelefon.setText(stvarniTelefon);
 
         prikaziSveKupljeneKarte();
-
 
         btnSpasiPodatke.setOnClickListener(v -> {
             String novoIme = etIme.getText().toString().trim();
@@ -74,9 +79,12 @@ public class ProfileActivity extends AppCompatActivity {
             editor.putString("KORISNIK_TELEFON", noviTelefon);
             editor.apply();
 
+            SharedPreferences.Editor loginEditor = loginPref.edit();
+            loginEditor.putString("ime", novoIme);
+            loginEditor.apply();
+
             Toast.makeText(this, "Podaci ažurirani!", Toast.LENGTH_SHORT).show();
         });
-
 
         btnPromjeniLozinku.setOnClickListener(v -> {
             String stara = etStaraLozinka.getText().toString().trim();
@@ -104,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void prikaziSveKupljeneKarte() {
-        kontejnerZaNarudzbe.removeAllViews(); // Očisti stare prikaze
+        kontejnerZaNarudzbe.removeAllViews();
         String dugačkiNizKarata = sharedPref.getString("KUPLJENE_KARTE", "");
 
         if (dugačkiNizKarata.isEmpty()) {
@@ -116,24 +124,20 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-
         String[] sveKarte = dugačkiNizKarata.split("##");
-
 
         for (int i = sveKarte.length - 1; i >= 0; i--) {
             String podaciTrenutneKarte = sveKarte[i];
 
-
             CardView card = new CardView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 0, 0, 24); // Razmak između kartica
+            params.setMargins(0, 0, 0, 24);
             card.setLayoutParams(params);
-            card.setRadius(32); // Zaobljene ivice
+            card.setRadius(32);
             card.setCardBackgroundColor(Color.WHITE);
             card.setClickable(true);
             card.setFocusable(true);
-
 
             LinearLayout unutarCard = new LinearLayout(this);
             unutarCard.setOrientation(LinearLayout.VERTICAL);
@@ -148,7 +152,6 @@ public class ProfileActivity extends AppCompatActivity {
             unutarCard.addView(tvTekst);
             card.addView(unutarCard);
 
-
             card.setOnClickListener(v -> {
                 MultiFormatWriter writer = new MultiFormatWriter();
                 try {
@@ -159,14 +162,12 @@ public class ProfileActivity extends AppCompatActivity {
                     ivProfilQrKod.setImageBitmap(bitmap);
                     layoutProfilQrPrikaz.setVisibility(View.VISIBLE);
 
-
                     layoutProfilQrPrikaz.getParent().requestChildFocus(layoutProfilQrPrikaz, layoutProfilQrPrikaz);
 
                 } catch (WriterException e) {
                     e.printStackTrace();
                 }
             });
-
 
             kontejnerZaNarudzbe.addView(card);
         }

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pannonicatime.R;
 import com.example.pannonicatime.database.AppDatabase;
 import com.example.pannonicatime.model.User;
 import java.util.concurrent.ExecutorService;
@@ -22,7 +23,6 @@ public class LoginActivity extends Activity {
     private TextView tvIdiNaRegistraciju;
     private AppDatabase baza;
 
-
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Override
@@ -30,15 +30,12 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvIdiNaRegistraciju = findViewById(R.id.tvIdiNaRegistraciju);
 
-
         baza = AppDatabase.getInstance(this);
-
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,31 +43,24 @@ public class LoginActivity extends Activity {
                 final String email = etEmail.getText().toString().trim();
                 final String password = etPassword.getText().toString().trim();
 
-
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Molimo popunite sva polja!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-
                 btnLogin.setEnabled(false);
-
 
                 executorService.execute(new Runnable() {
                     @Override
                     public void run() {
-
                         final User user = baza.userDao().login(email, password);
-
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
                                 btnLogin.setEnabled(true);
 
                                 if (user != null) {
-
                                     SharedPreferences sharedPreferences = getSharedPreferences("KorisnickiPodaci", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("ime", user.getIme());
@@ -79,7 +69,6 @@ public class LoginActivity extends Activity {
                                     editor.apply();
 
                                     Toast.makeText(LoginActivity.this, "Uspješna prijava! Dobrodošli " + user.getIme(), Toast.LENGTH_SHORT).show();
-
 
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
@@ -94,7 +83,6 @@ public class LoginActivity extends Activity {
             }
         });
 
-
         tvIdiNaRegistraciju.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +95,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         executorService.shutdown();
     }
 }

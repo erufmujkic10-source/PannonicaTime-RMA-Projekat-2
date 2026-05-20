@@ -7,7 +7,6 @@
     android:background="#F8FAFC"
     android:fitsSystemWindows="true">
 
-
     <ScrollView
         android:id="@+id/glavniScrollView"
         android:layout_width="match_parent"
@@ -21,7 +20,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,7 +32,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,7 +49,6 @@
                         android:textColor="#64748B"
                         android:textSize="13sp" />
                 </LinearLayout>
-
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardStatus"
@@ -73,7 +69,6 @@
                         android:paddingVertical="6dp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -134,49 +129,74 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aktuelne promocije"
+                android:text="Specijalne ponude"
                 android:textColor="#1E293B"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardPocetnaPromoMamac"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="1dp"
-                app:cardBackgroundColor="#FFFBEB"
-                android:layout_marginBottom="26dp">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#0284C7"
+                android:layout_marginBottom="26dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🎁 Porodični Paket - 20% Popusta"
-                        android:textColor="#B45309"
-                        android:textSize="15sp"
+                        android:text="🎁 Skrivena iznenađenja te čekaju!"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Uštedite na ulaznicama i otkrijte specijalne porodične, studentske i penzionerske pakete koji su dostupni isključivo unutar naše prodavnice."
+                        android:textColor="#E0F2FE"
+                        android:textSize="13sp"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingMultiplier="1.2"/>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kupite ulaznice online za 3 ili više članova porodice i ostvarite popust na ulazu!"
-                        android:textColor="#D97706"
-                        android:textSize="13sp"
-                        android:layout_marginTop="6dp"
-                        android:lineSpacingMultiplier="1.2"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Otvori Pannonica Shop"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginLeft="6dp"
+                            android:src="@android:drawable/ic_media_play"
+                            android:tint="#FFFFFF" />
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -194,8 +214,6 @@
                 android:textColor="#64748B"
                 android:textSize="12sp"
                 android:layout_marginBottom="16dp" />
-
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardJezera"
@@ -247,8 +265,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardSlapovi"
                 android:layout_width="match_parent"
@@ -298,8 +314,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardSojenice"
@@ -351,8 +365,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnIdiNaShop"
                 android:layout_width="match_parent"
@@ -367,7 +379,6 @@
 
         </LinearLayout>
     </ScrollView>
-
 
     <LinearLayout
         android:id="@+id/bottomNavigationMenu"

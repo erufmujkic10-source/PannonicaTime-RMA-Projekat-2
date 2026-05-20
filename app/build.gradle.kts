@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.example.pannonicatime"
         minSdk = 29
         targetSdk = 36
         versionCode = 1

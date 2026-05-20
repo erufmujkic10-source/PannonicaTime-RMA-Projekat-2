@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="24dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#E2E8F0"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/tvDetaljiNaslov"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Porodični Vikend Paket"
+        android:textColor="#0F172A"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDetaljiCijena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cijena: 20.00 KM"
+        android:textColor="#0284C7"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="6dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F1F5F9"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Šta je uključeno u ponudu:"
+        android:textColor="#1E293B"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvDetaljiOpis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ova promocija uključuje cjelodnevni ulaz za dvije odrasle osobe i dvoje djece do 12 godina tokom vikenda. Ulaznice važe za sve slane bazene i slapove na Panonici."
+        android:textColor="#475569"
+        android:textSize="15sp"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_marginBottom="28dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnKupiPromociju"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Kupi i dodaj na profil"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
