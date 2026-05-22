@@ -3,14 +3,16 @@
     package="com.example.pannonicatime">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".PannonicaModePamcenje"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Pannonica Time"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.PanonikaGo">
 
         <activity
             android:name=".SplashActivity"
@@ -26,9 +28,14 @@
         <activity android:name=".RegisterActivity" android:exported="false" />
 
         <activity android:name=".MainActivity" android:exported="false" />
+
         <activity android:name=".ShopActivity" android:exported="false" />
+
         <activity android:name=".SearchActivity" android:exported="false" />
+
         <activity android:name=".ProfileActivity" android:exported="false" />
+
+        <activity android:name=".SettingsActivity" android:exported="false" />
 
     </application>
 </manifest>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F7FA"
+    android:background="?android:attr/windowBackground"
     android:scrollbars="none">
 
     <LinearLayout
@@ -16,29 +16,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Moj Profil"
-            android:textColor="#0F172A"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:letterSpacing="-0.03"
             android:layout_marginBottom="4dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upravljajte računom i pregledajte svoje ulaznice"
-            android:textColor="#64748B"
+            android:textColor="?android:attr/textColorSecondary"
             android:textSize="14sp"
             android:layout_marginBottom="28dp"/>
-
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="LIČNE INFORMACIJE"
-            android:textColor="#475569"
+            android:textColor="?android:attr/textColorSecondary"
             android:textStyle="bold"
             android:textSize="12sp"
-            android:letterSpacing="0.05"
             android:layout_marginBottom="8dp"/>
 
         <androidx.cardview.widget.CardView
@@ -47,7 +44,7 @@
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
             android:layout_marginBottom="24dp"
-            app:cardBackgroundColor="#FFFFFF">
+            app:cardBackgroundColor="?attr/colorSurface">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,69 +52,23 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <EditText
-                    android:id="@+id/etProfilIme"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:hint="Ime i prezime"
-                    android:inputType="textPersonName"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:layout_marginBottom="12dp"
-                    android:paddingLeft="14dp"
-                    android:textSize="15sp"/>
+                <EditText android:id="@+id/etProfilIme" android:layout_width="match_parent" android:layout_height="52dp" android:hint="Ime i prezime" android:textColor="?android:attr/textColorPrimary" android:textColorHint="?android:attr/textColorSecondary" android:background="?android:attr/editTextBackground" android:layout_marginBottom="12dp" android:paddingLeft="14dp" android:textSize="15sp"/>
+                <EditText android:id="@+id/etProfilAdresa" android:layout_width="match_parent" android:layout_height="52dp" android:hint="Adresa stanovanja" android:textColor="?android:attr/textColorPrimary" android:textColorHint="?android:attr/textColorSecondary" android:background="?android:attr/editTextBackground" android:layout_marginBottom="12dp" android:paddingLeft="14dp" android:textSize="15sp"/>
+                <EditText android:id="@+id/etProfilTelefon" android:layout_width="match_parent" android:layout_height="52dp" android:hint="Kontakt telefon" android:textColor="?android:attr/textColorPrimary" android:textColorHint="?android:attr/textColorSecondary" android:background="?android:attr/editTextBackground" android:layout_marginBottom="16dp" android:paddingLeft="14dp" android:textSize="15sp"/>
 
-                <EditText
-                    android:id="@+id/etProfilAdresa"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:hint="Adresa stanovanja"
-                    android:inputType="textPostalAddress"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:layout_marginBottom="12dp"
-                    android:paddingLeft="14dp"
-                    android:textSize="15sp"/>
-
-                <EditText
-                    android:id="@+id/etProfilTelefon"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:hint="Kontakt telefon"
-                    android:inputType="phone"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:layout_marginBottom="16dp"
-                    android:paddingLeft="14dp"
-                    android:textSize="15sp"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnSpasiPodatke"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Spremi izmjene"
-                    android:backgroundTint="#0284C7"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
+                <androidx.appcompat.widget.AppCompatButton android:id="@+id/btnSpasiPodatke" android:layout_width="match_parent" android:layout_height="50dp" android:text="Spremi izmjene" android:backgroundTint="?attr/colorPrimary" android:textColor="#FFFFFF" android:textStyle="bold"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SIGURNOST"
-            android:textColor="#475569"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:letterSpacing="0.05"
-            android:layout_marginBottom="8dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SIGURNOST" android:textColor="?android:attr/textColorSecondary" android:textStyle="bold" android:textSize="12sp" android:layout_marginBottom="8dp"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            android:layout_marginBottom="28dp"
-            app:cardBackgroundColor="#FFFFFF">
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="?attr/colorSurface">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,85 +76,20 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <EditText
-                    android:id="@+id/etStaraLozinka"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:hint="Trenutna lozinka"
-                    android:inputType="textPassword"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:layout_marginBottom="12dp"
-                    android:paddingLeft="14dp"
-                    android:textSize="15sp"/>
+                <EditText android:id="@+id/etStaraLozinka" android:layout_width="match_parent" android:layout_height="52dp" android:hint="Trenutna lozinka" android:inputType="textPassword" android:textColor="?android:attr/textColorPrimary" android:textColorHint="?android:attr/textColorSecondary" android:background="?android:attr/editTextBackground" android:layout_marginBottom="12dp" android:paddingLeft="14dp" android:textSize="15sp"/>
+                <EditText android:id="@+id/etNovaLozinka" android:layout_width="match_parent" android:layout_height="52dp" android:hint="Nova lozinka" android:inputType="textPassword" android:textColor="?android:attr/textColorPrimary" android:textColorHint="?android:attr/textColorSecondary" android:background="?android:attr/editTextBackground" android:layout_marginBottom="16dp" android:paddingLeft="14dp" android:textSize="15sp"/>
 
-                <EditText
-                    android:id="@+id/etNovaLozinka"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:hint="Nova lozinka"
-                    android:inputType="textPassword"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:layout_marginBottom="16dp"
-                    android:paddingLeft="14dp"
-                    android:textSize="15sp"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnPromjeniLozinku"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Promijeni lozinku"
-                    android:backgroundTint="#334155"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
+                <androidx.appcompat.widget.AppCompatButton android:id="@+id/btnPromjeniLozinku" android:layout_width="match_parent" android:layout_height="50dp" android:text="Promijeni lozinku" android:backgroundTint="?attr/colorPrimary" android:textColor="#FFFFFF" android:textStyle="bold"/>
+                <androidx.appcompat.widget.AppCompatButton android:id="@+id/btnLogout" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginTop="12dp" android:text="Odjava" android:backgroundTint="#EF4444" android:textColor="#FFFFFF" android:textStyle="bold"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VAŠE KUPLJENE KARTE (KLIKNITE ZA QR KOD)"
-            android:textColor="#475569"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:letterSpacing="0.05"
-            android:layout_marginBottom="10dp"/>
-
-
-        <LinearLayout
-            android:id="@+id/kontejnerZaNarudzbe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-
-        <LinearLayout
-            android:id="@+id/layoutProfilQrPrikaz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:visibility="gone"
-            android:background="#FFFFFF"
-            android:padding="20dp"
-            android:layout_marginTop="16dp"
-            android:elevation="1dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aktivni QR Kod za ulaz"
-                android:textColor="#0284C7"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_marginBottom="12dp"/>
-
-            <ImageView
-                android:id="@+id/ivProfilQrKod"
-                android:layout_width="200dp"
-                android:layout_height="200dp"/>
+        <LinearLayout android:id="@+id/layoutProfilQrPrikaz" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone" android:background="?attr/colorSurface" android:padding="20dp" android:layout_marginBottom="24dp" android:elevation="2dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Vaša aktivna ulaznica" android:textColor="?attr/colorPrimary" android:textStyle="bold" android:textSize="16sp" android:layout_marginBottom="12dp"/>
+            <ImageView android:id="@+id/ivProfilQrKod" android:layout_width="220dp" android:layout_height="220dp" android:background="#FFFFFF" android:padding="4dp"/>
         </LinearLayout>
 
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HISTORIJA NARUDŽBI" android:textColor="?android:attr/textColorSecondary" android:textStyle="bold" android:textSize="12sp" android:letterSpacing="0.05" android:layout_marginBottom="12dp"/>
+        <LinearLayout android:id="@+id/kontejnerZaNarudzbe" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
     </LinearLayout>
 </ScrollView>

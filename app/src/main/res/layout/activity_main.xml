@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="?android:attr/windowBackground"
     android:fitsSystemWindows="true">
 
     <ScrollView
@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pannonica Time"
-                        android:textColor="#0284C7"
+                        android:textColor="?attr/colorPrimary"
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:letterSpacing="-0.02"/>
@@ -46,7 +46,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Vaš digitalni vodič kroz kompleks"
-                        android:textColor="#64748B"
+                        android:textColor="?android:attr/textColorSecondary"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
-                app:cardBackgroundColor="#0284C7"
+                app:cardBackgroundColor="?attr/colorPrimary"
                 android:layout_marginBottom="24dp">
 
                 <LinearLayout
@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Specijalne ponude"
-                android:textColor="#1E293B"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="#0284C7"
+                app:cardBackgroundColor="?attr/colorPrimary"
                 android:layout_marginBottom="26dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -193,7 +193,7 @@
                             android:layout_height="14dp"
                             android:layout_marginLeft="6dp"
                             android:src="@android:drawable/ic_media_play"
-                            android:tint="#FFFFFF" />
+                            app:tint="#FFFFFF" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -202,7 +202,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Istražite atrakcije kompleksa"
-                android:textColor="#1E293B"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="2dp" />
@@ -211,7 +211,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pregledajte ponudu i zanimljivosti lokacija"
-                android:textColor="#64748B"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="12sp"
                 android:layout_marginBottom="16dp" />
 
@@ -221,7 +221,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="?attr/colorSurface"
                 android:layout_marginBottom="18dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
@@ -249,7 +249,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tri Slana Jezera"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -257,7 +257,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Jedinstvena slana jezera u Evropi sa ljekovitom vodom i uređenim plažama u samom centru Tuzle."
-                            android:textColor="#64748B"
+                            android:textColor="?android:attr/textColorSecondary"
                             android:textSize="13sp"
                             android:layout_marginTop="4dp"
                             android:lineSpacingMultiplier="1.2"/>
@@ -271,7 +271,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="?attr/colorSurface"
                 android:layout_marginBottom="18dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
@@ -299,7 +299,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Slani Slapovi"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -307,7 +307,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Jedinstven inhalatorni zdravstveni centar na otvorenom sa kaskadama i čistim slanim aerosolom."
-                            android:textColor="#64748B"
+                            android:textColor="?android:attr/textColorSecondary"
                             android:textSize="13sp"
                             android:layout_marginTop="4dp"
                             android:lineSpacingMultiplier="1.2"/>
@@ -321,7 +321,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="?attr/colorSurface"
                 android:layout_marginBottom="26dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
@@ -349,7 +349,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Arheološki Park - Sojenice"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -357,7 +357,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Vjerodostojna rekonstrukcija neolitskog naselja i sojenica koja prikazuje bogatu istoriju i tradiciju."
-                            android:textColor="#64748B"
+                            android:textColor="?android:attr/textColorSecondary"
                             android:textSize="13sp"
                             android:layout_marginTop="4dp"
                             android:lineSpacingMultiplier="1.2"/>
@@ -385,7 +385,7 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:orientation="horizontal"
-        android:background="#FFFFFF"
+        android:background="?attr/colorSurface"
         android:elevation="12dp"
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true">
@@ -399,10 +399,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="🏠"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Početna"
-                android:textColor="#0284C7"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
-                android:textSize="13sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -413,13 +418,19 @@
             android:orientation="vertical"
             android:gravity="center"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔍"
+                android:textSize="20sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pretraga"
-                android:textColor="#64748B"
-                android:textSize="13sp" />
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -430,13 +441,42 @@
             android:orientation="vertical"
             android:gravity="center"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="👤"
+                android:textSize="20sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profil"
-                android:textColor="#64748B"
-                android:textSize="13sp" />
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menuSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚙️"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Postavke"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 

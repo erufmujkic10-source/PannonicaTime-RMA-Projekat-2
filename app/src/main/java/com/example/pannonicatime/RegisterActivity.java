@@ -1,122 +1,81 @@
 package com.example.pannonicatime;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.pannonicatime.database.AppDatabase;
 import com.example.pannonicatime.model.User;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
+import java.util.Map;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText etRegIme, etRegEmail, etRegPassword;
     private Button btnRegister;
-    private TextView tvNazadNaLogin;
-    private AppDatabase baza;
-
-
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         etRegIme = findViewById(R.id.etRegIme);
         etRegEmail = findViewById(R.id.etRegEmail);
         etRegPassword = findViewById(R.id.etRegPassword);
         btnRegister = findViewById(R.id.btnRegister);
-        tvNazadNaLogin = findViewById(R.id.tvNazadNaLogin);
 
+        btnRegister.setOnClickListener(v -> {
+            String ime = etRegIme.getText().toString().trim();
+            String email = etRegEmail.getText().toString().trim();
+            String password = etRegPassword.getText().toString().trim();
 
-        baza = AppDatabase.getInstance(this);
-
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String ime = etRegIme.getText().toString().trim();
-                final String email = etRegEmail.getText().toString().trim();
-                final String password = etRegPassword.getText().toString().trim();
-
-
-                if (ime.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(RegisterActivity.this, "Molimo popunite sva polja!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-                btnRegister.setEnabled(false);
-
-
-                executorService.execute(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        final User postojeciKorisnik = baza.userDao().provjeriEmail(email);
-
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (postojeciKorisnik != null) {
-
-                                    btnRegister.setEnabled(true);
-                                    Toast.makeText(RegisterActivity.this, "Korisnik sa ovim emailom već postoji!", Toast.LENGTH_SHORT).show();
-                                } else {
-
-                                    executorService.execute(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            User noviKorisnik = new User(ime, email, password);
-                                            baza.userDao().registrujKorisnika(noviKorisnik);
-
-
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-                                                    SharedPreferences sharedPreferences = getSharedPreferences("KorisnickiPodaci", MODE_PRIVATE);
-                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                    editor.putString("ime", ime);
-                                                    editor.putString("email", email);
-                                                    editor.apply();
-
-                                                    Toast.makeText(RegisterActivity.this, "Registracija uspješna! Prijavite se.", Toast.LENGTH_LONG).show();
-                                                    finish();
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        });
-
-
-        tvNazadNaLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+            if (ime.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Popuni sva polja!", Toast.LENGTH_SHORT).show();
+            } else {
+                registrujKorisnika(ime, email, password);
             }
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private void registrujKorisnika(String ime, String email, String password) {
+        //za firebase koristit
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String userId = mAuth.getCurrentUser().getUid();
 
-        executorService.shutdown();
+                        Map<String, Object> userMap = new HashMap<>();
+                        userMap.put("ime", ime);
+                        userMap.put("email", email);
+
+                        db.collection("korisnici").document(userId).set(userMap)
+                                .addOnSuccessListener(aVoid -> {
+
+                                    new Thread(() -> {
+                                        User noviUser = new User(userId, ime, email);
+                                        AppDatabase.getInstance(getApplicationContext()).userDao().insertUser(noviUser);
+
+                                        runOnUiThread(() -> {
+                                            Toast.makeText(this, "Registracija uspješna!", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                            finish();
+                                        });
+                                    }).start();
+
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(this, "Greška baze: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                    } else {
+                        Toast.makeText(this, "Greška: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 }

@@ -1,14 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
     namespace = "com.example.pannonicatime"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    // Ispravljena sintaksa za compileSdk
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.pannonicatime"
@@ -36,9 +34,17 @@ android {
 }
 
 dependencies {
+    // DODATO ZA FIREBASE (Koristimo BOM za upravljanje verzijama)
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore:25.0.0")
+
+    // TVOJE VERZIJE (OSTALE NETAKNUTE)
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    // Obrisao sam duplirane firebase linije koje su pravile konflikt
 
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -53,7 +59,5 @@ dependencies {
 
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
-
     implementation("com.google.zxing:core:3.4.1")
-    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }

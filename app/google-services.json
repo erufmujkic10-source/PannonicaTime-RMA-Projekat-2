@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1032015586472",
+    "project_id": "pannonicatime",
+    "storage_bucket": "pannonicatime.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032015586472:android:14df785905398f2a54ce9d",
+        "android_client_info": {
+          "package_name": "com.example.pannonicatime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoBiLKbDPzIxc-37H89K32iWRuGjwvv4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

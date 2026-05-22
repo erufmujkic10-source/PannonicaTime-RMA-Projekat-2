@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
         CardView cardJezera = findViewById(R.id.cardJezera);
         CardView cardSlapovi = findViewById(R.id.cardSlapovi);
         CardView cardSojenice = findViewById(R.id.cardSojenice);
+
         LinearLayout menuSearch = findViewById(R.id.menuSearch);
         LinearLayout menuProfile = findViewById(R.id.menuProfile);
+        LinearLayout menuSettings = findViewById(R.id.menuSettings);
 
         TextView tvTemperatura = findViewById(R.id.tvTemperatura);
         TextView tvVlaznost = findViewById(R.id.tvVlaznost);
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        // --- KLIKOVI ZA NAVIGACIJU ---
         if (menuSearch != null) {
             menuSearch.setOnClickListener(v -> {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
@@ -123,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
         if (menuProfile != null) {
             menuProfile.setOnClickListener(v -> {
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                overridePendingTransition(0, 0);
+            });
+        }
+
+        if (menuSettings != null) {
+            menuSettings.setOnClickListener(v -> {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 overridePendingTransition(0, 0);
             });
         }
@@ -196,10 +206,10 @@ public class MainActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_detalji, null);
         bottomSheetDialog.setContentView(dialogView);
 
-        ImageView ivSlika = dialogView.findViewById(R.id.dialogSlika);
-        TextView tvNaslov = dialogView.findViewById(R.id.dialogNaslov);
-        TextView tvOpis = dialogView.findViewById(R.id.dialogOpis);
-        Button btnZatvori = dialogView.findViewById(R.id.dialogBtnZatvori);
+        ImageView ivSlika = dialogView.findViewById(R.id.ivDijalogSlika);
+        TextView tvNaslov = dialogView.findViewById(R.id.tvDijalogNaslov);
+        TextView tvOpis = dialogView.findViewById(R.id.tvDijalogOpis);
+        Button btnZatvori = dialogView.findViewById(R.id.btnDijalogZatvori);
 
         if (tvNaslov != null) tvNaslov.setText(naslov);
         if (tvOpis != null) tvOpis.setText(opis);
