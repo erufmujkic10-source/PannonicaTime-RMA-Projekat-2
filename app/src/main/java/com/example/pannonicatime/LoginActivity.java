@@ -1,9 +1,9 @@
 package com.example.pannonicatime;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +45,11 @@ public class LoginActivity extends Activity {
                     .addOnCompleteListener(task -> {
                         btnLogin.setEnabled(true);
                         if (task.isSuccessful()) {
+                            getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                                    .edit()
+                                    .putString("email", email)
+                                    .apply();
+
                             Toast.makeText(this, "Prijava uspješna!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(this, MainActivity.class));
                             finish();

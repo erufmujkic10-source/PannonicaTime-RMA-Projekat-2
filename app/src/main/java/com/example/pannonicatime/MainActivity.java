@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // --- KLIKOVI ZA NAVIGACIJU ---
         if (menuSearch != null) {
             menuSearch.setOnClickListener(v -> {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));

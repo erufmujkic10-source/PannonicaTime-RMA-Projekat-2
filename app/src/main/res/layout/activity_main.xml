@@ -369,7 +369,7 @@
                 android:id="@+id/btnIdiNaShop"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="🎟️  KUPI ULAZNICE"
+                android:text="🎟️  PANNONICA SHOP"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:background="@android:drawable/btn_default"

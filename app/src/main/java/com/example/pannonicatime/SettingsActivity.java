@@ -8,6 +8,10 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import java.util.concurrent.TimeUnit;
+import androidx.work.OneTimeWorkRequest;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -20,12 +24,12 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         sharedPreferences = getSharedPreferences("PostavkePrefs", Context.MODE_PRIVATE);
-        boolean jeTamnaTema = sharedPreferences.getBoolean("TamnaTema", false);
 
         switchTamnaTema = findViewById(R.id.switchTamnaTema);
         switchObavijesti = findViewById(R.id.switchObavijesti);
         LinearLayout menuHome = findViewById(R.id.menuHome);
 
+        boolean jeTamnaTema = sharedPreferences.getBoolean("TamnaTema", false);
         if (switchTamnaTema != null) {
             switchTamnaTema.setChecked(jeTamnaTema);
             switchTamnaTema.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -39,6 +43,11 @@ public class SettingsActivity extends AppCompatActivity {
             switchObavijesti.setChecked(sharedPreferences.getBoolean("Obavijesti", true));
             switchObavijesti.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 sharedPreferences.edit().putBoolean("Obavijesti", isChecked).apply();
+                if (isChecked) {
+                    ukljuciNotifikacije();
+                } else {
+                    iskljuciNotifikacije();
+                }
             });
         }
 
@@ -50,4 +59,22 @@ public class SettingsActivity extends AppCompatActivity {
             });
         }
     }
+
+    private void ukljuciNotifikacije() {
+        PeriodicWorkRequest notificationRequest =
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 4, TimeUnit.HOURS)
+                        .build();
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "PannonicaNotif",
+                androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+                notificationRequest
+        );
+    }
+
+    private void iskljuciNotifikacije() {
+        WorkManager.getInstance(this).cancelUniqueWork("PannonicaNotif");
+    }
+
+
 }

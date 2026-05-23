@@ -1,5 +1,6 @@
 package com.example.pannonicatime;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -47,11 +48,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registrujKorisnika(String ime, String email, String password) {
-        //za firebase koristit
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String userId = mAuth.getCurrentUser().getUid();
+
+                        String imeFajla = "podaci_" + email;
+                        getSharedPreferences(imeFajla, Context.MODE_PRIVATE)
+                                .edit()
+                                .putString("ime", ime)
+                                .apply();
 
                         Map<String, Object> userMap = new HashMap<>();
                         userMap.put("ime", ime);
@@ -59,10 +65,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                         db.collection("korisnici").document(userId).set(userMap)
                                 .addOnSuccessListener(aVoid -> {
-
                                     new Thread(() -> {
                                         User noviUser = new User(userId, ime, email);
-                                        AppDatabase.getInstance(getApplicationContext()).userDao().insertUser(noviUser);
+                                        AppDatabase.getInstance(getApplicationContext()).userDao().dodajUsera(noviUser);
+
+                                        getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                                                .edit().putString("email", email).apply();
 
                                         runOnUiThread(() -> {
                                             Toast.makeText(this, "Registracija uspješna!", Toast.LENGTH_SHORT).show();
@@ -70,9 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             finish();
                                         });
                                     }).start();
-
-                                })
-                                .addOnFailureListener(e -> Toast.makeText(this, "Greška baze: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                                });
                     } else {
                         Toast.makeText(this, "Greška: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }

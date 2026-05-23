@@ -3,6 +3,7 @@ package com.example.pannonicatime;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,16 +16,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 
+import com.example.pannonicatime.database.AppDatabase;
+import com.example.pannonicatime.model.Narudzba;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -32,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
     private AppCompatButton btnSpasiPodatke, btnPromjeniLozinku, btnLogout;
     private LinearLayout kontejnerZaNarudzbe, layoutProfilQrPrikaz;
     private ImageView ivProfilQrKod;
-    private SharedPreferences sharedPref, loginPref;
+    private SharedPreferences loginPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +53,30 @@ public class ProfileActivity extends AppCompatActivity {
         layoutProfilQrPrikaz = findViewById(R.id.layoutProfilQrPrikaz);
         ivProfilQrKod = findViewById(R.id.ivProfilQrKod);
 
-        sharedPref = getSharedPreferences("PannonicaPrefs", Context.MODE_PRIVATE);
-        loginPref = getSharedPreferences("KorisnickiPodaci", Context.MODE_PRIVATE);
+        String trenutniEmail = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).getString("email", "gost");
+        String imeFajla = "podaci_" + trenutniEmail;
+        loginPref = getSharedPreferences(imeFajla, Context.MODE_PRIVATE);
 
-        etIme.setText(loginPref.getString("ime", sharedPref.getString("KORISNIK_IME", "Korisnik")));
-        etAdresa.setText(sharedPref.getString("KORISNIK_ADRESA", "Tuzla, BiH"));
-        etTelefon.setText(sharedPref.getString("KORISNIK_TELEFON", "+387 61 000 000"));
+        etIme.setText(loginPref.getString("ime", "Korisnik"));
+        etAdresa.setText(loginPref.getString("grad", "Tuzla"));
+        etTelefon.setText(loginPref.getString("telefon", "+387 61 000 000"));
 
         prikaziSveKupljeneKarte();
 
+        layoutProfilQrPrikaz.setOnClickListener(v -> layoutProfilQrPrikaz.setVisibility(View.GONE));
+
         btnSpasiPodatke.setOnClickListener(v -> {
             String novoIme = etIme.getText().toString().trim();
-            sharedPref.edit().putString("KORISNIK_IME", novoIme).apply();
-            loginPref.edit().putString("ime", novoIme).apply();
-            Toast.makeText(this, "Ažurirano!", Toast.LENGTH_SHORT).show();
+            String novaAdresa = etAdresa.getText().toString().trim();
+            String noviTelefon = etTelefon.getText().toString().trim();
+
+            loginPref.edit()
+                    .putString("ime", novoIme)
+                    .putString("grad", novaAdresa)
+                    .putString("telefon", noviTelefon)
+                    .apply();
+
+            Toast.makeText(this, "Podaci sačuvani!", Toast.LENGTH_SHORT).show();
         });
 
         btnPromjeniLozinku.setOnClickListener(v -> {
@@ -73,7 +85,10 @@ public class ProfileActivity extends AppCompatActivity {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null && user.getEmail() != null) {
                 AuthCredential cred = EmailAuthProvider.getCredential(user.getEmail(), stara);
-                user.reauthenticate(cred).addOnSuccessListener(a -> user.updatePassword(nova).addOnSuccessListener(b -> Toast.makeText(this, "Lozinka izmijenjena!", Toast.LENGTH_SHORT).show())).addOnFailureListener(e -> Toast.makeText(this, "Greška: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                user.reauthenticate(cred).addOnSuccessListener(a ->
+                        user.updatePassword(nova).addOnSuccessListener(b ->
+                                Toast.makeText(this, "Lozinka izmijenjena!", Toast.LENGTH_SHORT).show())
+                ).addOnFailureListener(e -> Toast.makeText(this, "Greška: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
         });
 
@@ -86,43 +101,48 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private int getThemeColor(int attr) {
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(attr, typedValue, true);
-        return typedValue.data;
-    }
-
     private void prikaziSveKupljeneKarte() {
         kontejnerZaNarudzbe.removeAllViews();
-        String karte = sharedPref.getString("KUPLJENE_KARTE", "");
-        if (karte.isEmpty()) return;
+        String trenutniEmail = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).getString("email", "");
+        List<Narudzba> listaNarudzbi = AppDatabase.getInstance(this).narudzbaDao().dajNarudzbeZaKorisnika(trenutniEmail);
 
-        String[] sveKarte = karte.split("##");
-        for (int i = sveKarte.length - 1; i >= 0; i--) {
-            String podaci = sveKarte[i];
+        if (listaNarudzbi == null || listaNarudzbi.isEmpty()) return;
 
+        for (Narudzba n : listaNarudzbi) {
             CardView card = new CardView(this);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2);
             p.setMargins(0, 0, 0, 24);
             card.setLayoutParams(p);
             card.setRadius(16);
-            card.setCardElevation(0);
-
-            card.setCardBackgroundColor(getThemeColor(com.google.android.material.R.attr.colorSurface));
+            card.setCardElevation(8);
+            card.setCardBackgroundColor(getTemaBoja(com.google.android.material.R.attr.colorSurface));
 
             TextView tv = new TextView(this);
             tv.setPadding(40, 40, 40, 40);
-            tv.setTextColor(getThemeColor(android.R.attr.textColorPrimary));
-            tv.setText("🎫 Narudžba #" + (i + 1) + "\n" + podaci);
+            tv.setTextColor(getTemaBoja(android.R.attr.textColorPrimary));
+            tv.setText("🎫 Narudžba #" + n.id + "\nDatum: " + n.datum + "\nStavke: " + n.detalji + "\nUkupno: " + (int)n.ukupnaCijena + " KM");
 
             card.addView(tv);
+
             card.setOnClickListener(v -> {
                 try {
-                    ivProfilQrKod.setImageBitmap(new BarcodeEncoder().createBitmap(new MultiFormatWriter().encode(podaci, BarcodeFormat.QR_CODE, 500, 500)));
+                    String podaciZaQr = "ID:" + n.id + " | Email:" + n.korisnikEmail + " | " + n.detalji;
+                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                    Bitmap bitmap = barcodeEncoder.encodeBitmap(podaciZaQr, BarcodeFormat.QR_CODE, 500, 500);
+
+                    ivProfilQrKod.setImageBitmap(bitmap);
                     layoutProfilQrPrikaz.setVisibility(View.VISIBLE);
-                } catch (WriterException e) { e.printStackTrace(); }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
             kontejnerZaNarudzbe.addView(card);
         }
+    }
+
+    private int getTemaBoja(int attr) {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.data;
     }
 }

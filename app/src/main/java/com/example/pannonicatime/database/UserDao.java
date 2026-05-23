@@ -2,15 +2,18 @@ package com.example.pannonicatime.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 import com.example.pannonicatime.model.User;
 
 @Dao
 public interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertUser(User user);
+    @Insert
+    void dodajUsera(User user);
 
-    @Query("SELECT * FROM users WHERE uid = :uid LIMIT 1")
-    User getUserById(String uid);
+    @Update
+    void azurirajUsera(User user);
+
+    @Query("SELECT * FROM users WHERE id = 1 LIMIT 1")
+    User dajGlavnogUsera();
 }
