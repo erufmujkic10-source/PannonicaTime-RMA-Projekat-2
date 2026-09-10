@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // --- DODANO ZA OTVARANJE RASPOREDA ---
         if (menuSchedule != null) {
             menuSchedule.setOnClickListener(v -> {
                 startActivity(new Intent(MainActivity.this, ScheduleActivity.class));
