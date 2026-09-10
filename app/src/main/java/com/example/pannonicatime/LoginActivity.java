@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
             String password = etPassword.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Popunite polja!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Molimo vas popunite polja!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -50,7 +50,7 @@ public class LoginActivity extends Activity {
                                     .putString("email", email)
                                     .apply();
 
-                            Toast.makeText(this, "Prijava uspješna!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Uspješno ste se prijavili!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(this, MainActivity.class));
                             finish();
                         } else {

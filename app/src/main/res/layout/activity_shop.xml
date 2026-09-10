@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC">
+    android:background="?android:attr/windowBackground">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pannonica Shop"
-                android:textColor="#0F172A"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:letterSpacing="-0.01" />
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dodajte željeni broj ulaznica u korpu prije potvrde"
-                android:textColor="#64748B"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="24dp"/>
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Standardne Ulaznice"
-                android:textColor="#475569"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
@@ -52,7 +52,7 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Redovna ulaznica"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -108,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:gravity="center"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -132,7 +132,7 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Dječija ulaznica"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -188,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:gravity="center"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -212,7 +212,7 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -231,7 +231,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Povlaštena ulaznica"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -268,7 +268,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:gravity="center"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -292,7 +292,7 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -311,7 +311,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Ležaljka"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -348,7 +348,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:gravity="center"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -372,7 +372,7 @@
                 android:layout_marginBottom="32dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -391,7 +391,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Suncobran"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -428,7 +428,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:gravity="center"
-                            android:textColor="#1E293B"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -450,7 +450,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Aktuelne Promocije"
-                android:textColor="#475569"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
@@ -466,7 +466,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -478,7 +478,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Porodični Vikend Paket"
-                        android:textColor="#0F172A"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -503,7 +503,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -515,7 +515,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Studentski Paket 3+1"
-                        android:textColor="#0F172A"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -540,7 +540,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -552,7 +552,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Penzionerski Mjesečni Paket"
-                        android:textColor="#0F172A"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -575,7 +575,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="?attr/colorSurface"
         android:elevation="16dp"
         android:orientation="vertical"
         android:paddingHorizontal="24dp"
@@ -594,7 +594,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Ukupno za uplatu"
-                android:textColor="#64748B"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -603,7 +603,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0 KM"
-                android:textColor="#0F172A"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>

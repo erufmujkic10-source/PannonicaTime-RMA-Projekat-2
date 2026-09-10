@@ -1,91 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="?attr/colorSurface"> <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent">
+    android:background="#0284C7">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kreirajte račun"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Istražite Panonska jezera uz PannonicaTime"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="32dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGISTRACIJA"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="40dp"
+            android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:id="@+id/etRegIme"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Ime i prezime"
-        android:inputType="textPersonName"
-        android:paddingHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="?android:attr/editTextBackground"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textColorHint="?android:attr/textColorSecondary" />
+        <EditText
+            android:id="@+id/etRegIme"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Ime i prezime"
+            android:textColorHint="#94A3B8"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="16dp"
+            android:background="#FFFFFF"
+            android:textColor="#000000" />
 
-    <EditText
-        android:id="@+id/etRegEmail"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Email adresa"
-        android:inputType="textEmailAddress"
-        android:paddingHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="?android:attr/editTextBackground"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textColorHint="?android:attr/textColorSecondary" />
+        <EditText
+            android:id="@+id/etRegEmail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Email adresa"
+            android:textColorHint="#94A3B8"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="16dp"
+            android:background="#FFFFFF"
+            android:textColor="#000000" />
 
-    <EditText
-        android:id="@+id/etRegPassword"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Lozinka"
-        android:inputType="textPassword"
-        android:paddingHorizontal="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="?android:attr/editTextBackground"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textColorHint="?android:attr/textColorSecondary" />
+        <EditText
+            android:id="@+id/etRegPassword"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Lozinka"
+            android:textColorHint="#94A3B8"
+            android:inputType="textPassword"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="24dp"
+            android:background="#FFFFFF"
+            android:textColor="#000000" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:text="REGISTRUJ SE"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:backgroundTint="?attr/colorPrimary"
-        android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="REGISTRUJ SE"
+            android:backgroundTint="#0369A1"
+            android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/tvNazadNaLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Već imate račun? Prijavite se"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="14sp"
-        android:layout_marginTop="24dp"
-        android:textStyle="bold"
-        android:padding="8dp"/>
-
-</LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</RelativeLayout>

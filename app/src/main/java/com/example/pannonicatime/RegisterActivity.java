@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 .edit().putString("email", email).apply();
 
                                         runOnUiThread(() -> {
-                                            Toast.makeText(this, "Registracija uspješna!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(this, "Uspješno ste se registrovali!", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                             finish();
                                         });

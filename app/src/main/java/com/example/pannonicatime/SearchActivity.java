@@ -89,7 +89,7 @@ public class SearchActivity extends AppCompatActivity {
     private void ucitajSvePonudePanonike() {
         kompletnaLista = new ArrayList<>();
 
-        kompletnaLista.add(new SearchStavka("🏝️ Prvo Panonsko jezero", "Prvo izgrađeno jezero sa ljekovitom slanom vodom i pješčanom plažom.", "atrakcija", 0.00, R.drawable.prvo_jezero));
+        kompletnaLista.add(new SearchStavka("🏝️ Prvo Panonsko jezero", "Prvo izgrađeno jezero sa ljekovitom slanom vodom i velikom plažom.", "atrakcija", 0.00, R.drawable.prvo_jezero));
         kompletnaLista.add(new SearchStavka("🏊 Drugo Panonsko jezero", "Prelijepo vještačko jezero idealno za plivače i odmor.", "atrakcija", 0.00, R.drawable.drugo_jezero));
         kompletnaLista.add(new SearchStavka("🌊 Treće Panonsko jezero", "Najmodernije jezero u kompleksu sa vodenim toboganima.", "atrakcija", 0.00, R.drawable.trece_jezero));
         kompletnaLista.add(new SearchStavka("⛲ Slani slapovi", "Jedinstveni otvoreni inhalatorni zdravstveni centar na pet stepenica.", "atrakcija", 0.00, R.drawable.slapovi));

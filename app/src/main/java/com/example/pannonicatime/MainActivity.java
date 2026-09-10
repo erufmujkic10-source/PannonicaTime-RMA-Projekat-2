@@ -1,7 +1,10 @@
 package com.example.pannonicatime;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,17 +30,34 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    zakaziRandomPodsjetnik();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        provjeriIliZatrazitiDozvoluZaNotifikacije();
+
         Button btnIdiNaShop = findViewById(R.id.btnIdiNaShop);
+        Button btnOtvoriKviz = findViewById(R.id.btnOtvoriKviz);
+
         CardView cardPocetnaPromoMamac = findViewById(R.id.cardPocetnaPromoMamac);
+        CardView cardZanimljivosti = findViewById(R.id.cardZanimljivosti);
+        TextView tvZanimljivostTekst = findViewById(R.id.tvZanimljivostTekst);
+
         CardView cardJezera = findViewById(R.id.cardJezera);
         CardView cardSlapovi = findViewById(R.id.cardSlapovi);
         CardView cardSojenice = findViewById(R.id.cardSojenice);
@@ -43,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout menuProfile = findViewById(R.id.menuProfile);
         LinearLayout menuSettings = findViewById(R.id.menuSettings);
 
+        LinearLayout menuSchedule = findViewById(R.id.menuSchedule);
+
         TextView tvTemperatura = findViewById(R.id.tvTemperatura);
         TextView tvVlaznost = findViewById(R.id.tvVlaznost);
         CardView cardStatus = findViewById(R.id.cardStatus);
@@ -50,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
         povuciStvarnePodatkeOVremenu(tvTemperatura, tvVlaznost);
         provjeriIReadnoVrijemeKompleksa(cardStatus, tvStatus);
+
+        prikaziRandomZanimljivost(tvZanimljivostTekst);
+
+        if (cardZanimljivosti != null) {
+            cardZanimljivosti.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    prikaziRandomZanimljivost(tvZanimljivostTekst);
+                }
+            });
+        }
 
         if (cardPocetnaPromoMamac != null) {
             cardPocetnaPromoMamac.setOnClickListener(new View.OnClickListener() {
@@ -61,11 +97,22 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+
         if (btnIdiNaShop != null) {
             btnIdiNaShop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     otvoriShop();
+                }
+            });
+        }
+
+        if (btnOtvoriKviz != null) {
+            btnOtvoriKviz.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                    startActivity(intent);
                 }
             });
         }
@@ -135,11 +182,77 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             });
         }
+
+        // --- DODANO ZA OTVARANJE RASPOREDA ---
+        if (menuSchedule != null) {
+            menuSchedule.setOnClickListener(v -> {
+                startActivity(new Intent(MainActivity.this, ScheduleActivity.class));
+                overridePendingTransition(0, 0);
+            });
+        }
+    }
+
+    private void provjeriIliZatrazitiDozvoluZaNotifikacije() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                zakaziRandomPodsjetnik();
+            } else {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        } else {
+            zakaziRandomPodsjetnik();
+        }
+    }
+
+    private void zakaziRandomPodsjetnik() {
+        Intent intent = new Intent(this, PodsjetnikReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.SECOND, 0);
+
+        if (Calendar.getInstance().after(calendar)) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, // Ponavlja se automatski svaka 24 sata
+                    pendingIntent
+            );
+        }
     }
 
     private void otvoriShop() {
         Intent intent = new Intent(MainActivity.this, ShopActivity.class);
         startActivity(intent);
+    }
+
+    private void prikaziRandomZanimljivost(TextView tvTekst) {
+        if (tvTekst == null) return;
+        String[] zanimljivosti = {
+                "Slana jezera u Tuzli su jedina vještačka slana jezera u Evropi sa ljekovitim svojstvima.",
+                "Voda u Panonskim jezerima ima salinitet sličan morskoj vodi (30-40 g/l).",
+                "Arheološki park predstavlja rekonstrukciju neolitskog sojenčkog naselja pronađenog u Tuzli.",
+                "Tuzla je jedinstven grad u Evropi koji ima slana jezera, slapove i solanu u samom centru grada.",
+                "Slani slapovi služe kao prirodni inhalatorni centar na otvorenom za disajne puteve.",
+                "Prvo Panonsko jezero otvoreno je 2003. godine i od tada je privuklo milione posjetilaca.",
+                "Historijsko naslijeđe Tuzle direktno je vezano za eksploataciju slane vode i izvora još iz predhistorijskog doba.",
+                "Kompleks Panonskih jezera dobitnik je brojnih priznanja za turizam i očuvanje okoliša.",
+                "Tokom ljetne sezone, Panonika nudi bogat kulturni, zabavni i sportski sadržaj za sve generacije."
+        };
+        int index = new java.util.Random().nextInt(zanimljivosti.length);
+        tvTekst.setText(zanimljivosti[index]);
     }
 
     private void povuciStvarnePodatkeOVremenu(TextView tvTemp, TextView tvVlaz) {

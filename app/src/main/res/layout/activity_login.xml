@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="@color/background">
+    android:background="#0284C7">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,82 +13,63 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DOBRODOŠLI"
-            android:textColor="@color/text_main"
+            android:text="PRIJAVA"
+            android:textColor="#FFFFFF"
             android:textSize="28sp"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Prijavite se na Vaš PannonicaTime račun"
-            android:textColor="@color/text_muted"
-            android:textSize="14sp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="32dp" />
-
+            android:textStyle="bold"
+            android:layout_marginBottom="40dp" />
 
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@android:drawable/editbox_background_normal"
+            android:layout_height="60dp"
             android:hint="Email adresa"
-            android:textColorHint="@color/text_muted"
-            android:textColor="@color/text_main"
-            android:textSize="16sp"
             android:inputType="textEmailAddress"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_marginBottom="16dp" />
-
+            android:paddingHorizontal="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/white"
+            android:backgroundTint="#F1F5F9"
+            android:textColor="#000000"
+            android:textColorHint="#94A3B8"
+            android:elevation="6dp" />
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@android:drawable/editbox_background_normal"
+            android:layout_height="60dp"
             android:hint="Lozinka"
-            android:textColorHint="@color/text_muted"
-            android:textColor="@color/text_main"
-            android:textSize="16sp"
             android:inputType="textPassword"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_marginBottom="24dp" />
-
+            android:paddingHorizontal="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@android:color/white"
+            android:backgroundTint="#F1F5F9"
+            android:textColor="#000000"
+            android:textColorHint="#94A3B8"
+            android:elevation="6dp" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="60dp"
             android:text="PRIJAVI SE"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:backgroundTint="@color/primary"
-            android:textColor="@color/white" />
-
+            android:backgroundTint="#0369A1"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/tvIdiNaRegistraciju"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nemate račun? Registrujte se besplatno!"
-            android:textColor="@color/primary"
+            android:text="Registrujte se!"
+            android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:layout_marginTop="24dp"
-            android:textStyle="bold"
             android:padding="8dp"/>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
